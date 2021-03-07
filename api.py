@@ -16,13 +16,12 @@ from datetime import datetime, timedelta
 app = Flask(__name__)
 CORS(app)
 app.config["DEBUG"] = True
-
 stock_list = []
 df = pd.read_csv('Nifty50.csv')
 stock_list = json.loads(df.to_json(orient="records"))
 stock_list = {'res': stock_list}
 
-
+# The various key are being taken from env file for Twitter authentication
 def authentication():
     consumer_key = os.environ.get('Twitter_Consumer_Key')
     consumer_secret = os.environ.get('Twitter_Consumer_Secret')
@@ -33,7 +32,7 @@ def authentication():
     api = tweepy.API(auth)
     return api
 
-
+# To handle any Page not Found Error
 @app.errorhandler(404)
 def page_not_found(e):
     return "<h1>404</h1><p>The resource could not be found.</p>", 404
@@ -42,12 +41,12 @@ def page_not_found(e):
 # This is used to get all the stocks in nifty50
 @app.route('/', methods=['GET'])
 @app.route('/all', methods=['GET'])
-def get_stock_list(): # http://127.0.0.1:5000/all
+def get_stock_list():
     return stock_list
 
-
+# This is used to predict the stock prices by taking the value from database for respective stock
 @app.route('/predict', methods=['GET'])
-def get_predictions(): # http://127.0.0.1:5000/predict?id=AXISBANK
+def get_predictions():
     if 'id' in request.args:
         sector = request.args['id']
 
@@ -58,13 +57,15 @@ def get_predictions(): # http://127.0.0.1:5000/predict?id=AXISBANK
 
         return {'res' : [{k:df.values[i][v] for v,k in enumerate(df.columns)} for i in range(len(df)) ] }
 
-
+# To get a list of tweets from twitter for a particular keywork and number of tweets
 def get_tweets(keyword, noOfTweet):
     api = authentication()
     tweets = tweepy.Cursor(api.search, q=keyword, tweet_mode = "extended", languages=["en"]).items(noOfTweet)
-    tweets_list = [{'name':tweet.user.name, 'screen_name': tweet.user.screen_name, 'tweet' : tweet.full_text, 'polarity': TextBlob(tweet.full_text).sentiment.polarity, 'subjective': TextBlob(tweet.full_text).sentiment.subjectivity } for tweet in tweets]
+    tweets_list = [{'name':tweet.user.name, 'screen_name': tweet.user.screen_name, 'tweet' : tweet.full_text, 'polarity': TextBlob(tweet.full_text).sentiment.polarity } for tweet in tweets]
     return tweets_list
 
+# To generate twitter Sentiment analysis for a list of tweets
+# Polarity for each tweets is analysed and percentage is generated for each polarity i.e.,[Positive, Neutral, Negative] 
 @app.route('/tweets', methods=['GET'])
 def get_polarity(): # http://127.0.0.1:5000/tweets?keyword=NSE
     tweeter_result = {}
@@ -87,6 +88,7 @@ def get_polarity(): # http://127.0.0.1:5000/tweets?keyword=NSE
         tweeter_result['data'] = tweets_list
     return tweeter_result
 
+# To provide past data of a particular stock and 'n' number of days ago
 @app.route('/pastData', methods=['GET'])
 def get_previous_days_data(): # http://127.0.0.1:5000/pastData?code=AXISBANK&days=15
     previous_days_data = {}
