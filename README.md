@@ -85,7 +85,7 @@ To run the code, you need to have the following:
 - Python (More Details: https://www.python.org/downloads/)
 - Colab (More Details: https://colab.research.google.com/notebooks/)
 - Angular 10+ (More Details: https://angular.io/docs)
-- Node.js
+- Node.js (More Details: https://nodejs.org/en/docs/)
 
 <a id='project-running'></a>
 
@@ -103,7 +103,7 @@ The application requires to be started from Price-Prediction-using-LSTM pipeline
 - Inside data folder, open _Generate_Database_Stocks.ipynb_ and run all the cells.(Note: Please avoid running cell #6 if using any code editor) Once everything is done, you will get the list of database of stocks. Please copy all the database and keep it inside models/DatabaseStock directory.
 - In case you want to use Colab Notebook, upload the file and run all the cells. Once done, you will be notified of downloading the zipped folder of all the database file. Please download the zipped folder inside models/DatabaseStock directory and extract it there.
 
-![Stage1](https://github.com/prabhatdutt95/Disaster-Response-Pipeline/blob/main/Screenshots/Stage1.JPG?raw=true)
+![zipping_files](https://github.com/prabhatdutt95/Capstone_Investing_Trading/blob/main/Screenshot/Step1_zipping_files.JPG?raw=true)
 
 <a id='api-creation'></a>
 ### 4.2. Stage 2: Creating Web APIs with Flask Pipeline
@@ -112,35 +112,31 @@ After Stage 1 is complete
 
 **Go to the project directory** and the run the following command:
 
-First create a virtual-environment by following command
+First create and activate a virtual-environment by following command
 ```
 virtualenv <Name of your environment>
+<Name of your environment>/Scripts/activate
 ```
+
 Install from requirements.txt inside model directory using command:
 ```
 pip install -r requirements.txt
 ```
-
+![Installing_lib](https://github.com/prabhatdutt95/Capstone_Investing_Trading/blob/main/Screenshot/Stage2_Installing_lib.JPG?raw=true)
 Now inside the models directory, run the following command:
 ```bat
-python models/api.py
+python api.py
 ```
 
 Application will start running locally!
 
-![Stage2-Initialize](https://github.com/prabhatdutt95/Disaster-Response-Pipeline/blob/main/Screenshots/Stage2_init.JPG?raw=true)
-
-
-<a id='stage2-results'></a>
-![Stage2-Results1](https://github.com/prabhatdutt95/Disaster-Response-Pipeline/blob/main/Screenshots/Stage2_results1.JPG?raw=true)
-
-![Stage2-Results2](https://github.com/prabhatdutt95/Disaster-Response-Pipeline/blob/main/Screenshots/Stage2_results2.JPG?raw=true)
+![Running_locally_2](https://github.com/prabhatdutt95/Capstone_Investing_Trading/blob/main/Screenshot/Step2_running_locally.JPG?raw=true)
 
 
 <a id='run-flask'></a>
 ### 4.3. Stage 3: Running the Angular Web App
 
-After Stage 2 is complete (application is running locally)
+After Stage 2 is running (application is running locally)
 
 **Go the app directory** and run the following command to install the node_modules:
 
@@ -155,35 +151,45 @@ ng serve --open
 ```
 This will start running application on your web browser.
 
+![Running_locally_3](https://github.com/prabhatdutt95/Capstone_Investing_Trading/blob/main/Screenshot/Step3_running_locally.JPG?raw=true)
+
 **_Screenshot 1_**
 
-![Landing Page](https://github.com/prabhatdutt95/Disaster-Response-Pipeline/blob/main/Screenshots/Landing_page.JPG?raw=true)
+![Home Page](https://github.com/prabhatdutt95/Capstone_Investing_Trading/blob/main/Screenshot/Step3_Home.JPG?raw=true)
+
+**_Screenshot 2_**
+
+![Search_result](https://github.com/prabhatdutt95/Capstone_Investing_Trading/blob/main/Screenshot/Step3_Search_result.JPG?raw=true)
+
+**_Screenshot 3_**
+
+![Twitter_Analysis_negative](https://github.com/prabhatdutt95/Capstone_Investing_Trading/blob/main/Screenshot/Step3_Twitter_analysis.JPG?raw=true)
+
+
+**_Screenshot 4_**
+
+![Twitter_Analysis_positive](https://github.com/prabhatdutt95/Capstone_Investing_Trading/blob/main/Screenshot/Step3_Twitter_analysis_positive.JPG?raw=true)
+
+**_Screenshot 5_**
+
+![Search_candle](https://github.com/prabhatdutt95/Capstone_Investing_Trading/blob/main/Screenshot/Step3_candle.JPG?raw=true)
 
 
 ## 5. Files
 
 <pre>
 .
-├── app
-│   ├── templates
-│   │   ├── assets
-│   │   │   ├── favicon.ico-----------# FAVICON FOR THE WEB APP
-│   │   │   └── logo.png--------------# LOGO FOR THE WEB APP
-│   │   ├── go.html-------------------# CLASSIFICATION RESULT PAGE OF WEB APP
-│   │   └── master.html---------------# MAIN PAGE OF WEB APP
-│   └── run.py------------------------# FLASK FILE THAT RUNS APP
+├── app ---------------------------------# FOLDER CONTAINING ANGULAR APPLICATION
+│   
 │
 ├── data
-│   ├── disaster_categories.csv-----------# CSV DATA CONTAINING CATEGORIES DATA
-│   ├── disaster_messages.csv-------------# CSV DATA CONTAINING MESSAGES DATA
-│   ├── DisasterResponse.db---------------# DATABASE IN WHICH WE SAVE THE CLEANED DATA
-│   └── process_data.py-------------------# PERFORMS ETL PROCESS
-│   └── ETL Pipeline Preparation.ipynb----# JUPYTER NOTEBOOK CONTAINING ETL PIPELINE
+│   └── Generate_Database_Stocks.ipynb ----# NOTEBOOK CONTAINS DATA PROCESSING PIPELINE
 │
 ├── models
-│   ├── classifier.pkl -------------------# PICKLE FILE TO SAVE THE EXPORT THE FINAL MODEL-PIPELINE
-│   ├── ML Pipeline Preparation.ipynb-----# JUPYTER NOTEBOOK CONTAINING ML PIPELINE
-│   └── train_classifier.py---------------# PERFORMS CLASSIFICATION TASK
+|   ├── DatabaseStock --------------------# FOLDER CONTAINING LIST OF DATABASE OF DIFFERENT STOCK HAVING ACTUAL & PREDICTED PRICE AT PARTICULAR DATE
+│   ├── Nifty50.csv ----------------------# CSV FILE TO STORE STOCK DATA SUCH AS Company_Name/Symbol/Industry/Twitter_handle/Logo/Low/Open/High/Close/Volume
+│   ├── api.py----------------------------# PYTHON FILE CONTAINING APIs DATA
+│   └── requirements.txt------------------# TEXT FILE CONTAINING LIST OF LIBRARIES REQUIRED
 |
 └── Screenshots ----------------------# CONTAINS SCREENSHOTS FOR VARIOUS STEPS IN APPLICATION
 
