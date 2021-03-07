@@ -179,26 +179,17 @@ This will start running application on your web browser.
 
 <pre>
 .
-├── app
-│   ├── templates
-│   │   ├── assets
-│   │   │   ├── favicon.ico-----------# FAVICON FOR THE WEB APP
-│   │   │   └── logo.png--------------# LOGO FOR THE WEB APP
-│   │   ├── go.html-------------------# CLASSIFICATION RESULT PAGE OF WEB APP
-│   │   └── master.html---------------# MAIN PAGE OF WEB APP
-│   └── run.py------------------------# FLASK FILE THAT RUNS APP
+├── app ---------------------------------# FOLDER CONTAINING ANGULAR APPLICATION
+│   
 │
 ├── data
-│   ├── disaster_categories.csv-----------# CSV DATA CONTAINING CATEGORIES DATA
-│   ├── disaster_messages.csv-------------# CSV DATA CONTAINING MESSAGES DATA
-│   ├── DisasterResponse.db---------------# DATABASE IN WHICH WE SAVE THE CLEANED DATA
-│   └── process_data.py-------------------# PERFORMS ETL PROCESS
-│   └── ETL Pipeline Preparation.ipynb----# JUPYTER NOTEBOOK CONTAINING ETL PIPELINE
+│   └── Generate_Database_Stocks.ipynb ----# NOTEBOOK CONTAINS DATA PROCESSING PIPELINE
 │
 ├── models
-│   ├── classifier.pkl -------------------# PICKLE FILE TO SAVE THE EXPORT THE FINAL MODEL-PIPELINE
-│   ├── ML Pipeline Preparation.ipynb-----# JUPYTER NOTEBOOK CONTAINING ML PIPELINE
-│   └── train_classifier.py---------------# PERFORMS CLASSIFICATION TASK
+|   ├── DatabaseStock --------------------# FOLDER CONTAINING LIST OF DATABASE OF DIFFERENT STOCK HAVING ACTUAL & PREDICTED PRICE AT PARTICULAR DATE
+│   ├── Nifty50.csv ----------------------# CSV FILE TO STORE STOCK DATA SUCH AS Company_Name/Symbol/Industry/Twitter_handle/Logo/Low/Open/High/Close/Volume
+│   ├── api.py----------------------------# PYTHON FILE CONTAINING APIs DATA
+│   └── requirements.txt------------------# TEXT FILE CONTAINING LIST OF LIBRARIES REQUIRED
 |
 └── Screenshots ----------------------# CONTAINS SCREENSHOTS FOR VARIOUS STEPS IN APPLICATION
 
