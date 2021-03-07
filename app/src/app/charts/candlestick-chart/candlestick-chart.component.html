@@ -1,0 +1,55 @@
+<div class="btn-group" role="group" aria-label="Basic example">
+  <button
+    type="button"
+    class="btn btn-sm border {{
+      selectedChart == 30 ? 
+      'btn-primary'
+      : 'btn-link'
+    }}"
+    (click)="selectedChart = 30; getPastData()"
+  >
+    1M
+  </button>
+  <button
+    type="button"
+    class="btn btn-sm border {{
+      selectedChart == 90
+        ? 'btn-primary'
+        : 'btn-link'
+    }}"
+    (click)="selectedChart = 90; getPastData()"
+  >
+    3M
+  </button>
+  <button
+    type="button"
+    class="btn btn-sm border {{
+      selectedChart == 180
+        ? 'btn-primary'
+        : 'btn-link'
+    }}"
+    (click)="selectedChart = 180; getPastData()"
+  >
+    6M
+  </button>
+  <button
+    type="button"
+    class="btn btn-sm border {{
+      selectedChart == 365
+        ? 'btn-primary'
+        : 'btn-link'
+    }}"
+    (click)="selectedChart = 365; getPastData()"
+  >
+    1Y
+  </button>
+</div>
+<div id="chart" *ngIf="isLoaded">
+  <apx-chart
+    [series]="chartOptions?.series"
+    [chart]="chartOptions?.chart"
+    [xaxis]="chartOptions?.xaxis"
+    [yaxis]="chartOptions?.yaxis"
+    [title]="chartOptions?.title"
+  ></apx-chart>
+</div>

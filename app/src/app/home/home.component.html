@@ -1,0 +1,178 @@
+<div class="tech-slideshow">
+  <div class="mt-4 mover-1">
+    <div
+      class="bg-primary border card ml-2 shadow-none text-light"
+      *ngFor="let stock of allStocks"
+    >
+      <div class="card-body p-1 text-truncate" (click)="selectStock(stock)">
+        {{ stock.Company_Name | titlecase }}
+        <div class="d-flex">
+          <div class="font-weight-bold">
+            {{ stock.Close | currency: "INR" }}
+          </div>
+          <div
+            class="ml-auto font-weight-bold {{
+              stock.Close >= stock.Open ? 'text-success' : 'text-danger'
+            }}"
+          >
+            <i
+              class="fa fa-arrow-down"
+              *ngIf="stock.Open >= stock.Close"
+            ></i>
+            <i
+              class="fa fa-arrow-up"
+              *ngIf="stock.Close >= stock.Open"
+            ></i>
+            {{ stock.change }} %
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mx-lg-5 mx-md-4 mx-sm-3 mx-2 mt-2">
+  <div class="row">
+    <div class="col-lg-8 col-12">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text border-right-0"
+            ><i class="fa fa-search"></i
+          ></span>
+        </div>
+        <input
+          type="text"
+          class="form-control border-left-0"
+          placeholder="Stock Name"
+          [(ngModel)]="stockQuery"
+          [ngbTypeahead]="search"
+          (change)="selectStock()"
+        />
+        <div class="input-group-append">
+          <span
+            class="input-group-text pl-3 bg-primary border-primary text-light font-weight-bold"
+          >
+            Go
+          </span>
+        </div>
+      </div>
+      <div class="mt-2 card w-100 graph-card">
+        <div class="card-body" *ngIf="!selectedStock; else showGraph">
+          <table class="table table-sm table-hover table-responsive">
+            <thead>
+              <tr>
+                <th class="w-50 border-0">Stocks</th>
+                <th class="w-50 text-right border-0">Price</th>
+                <th class="border-0"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let stock of allStocks">
+                <td class="py-1 w-50">
+                  <div class="d-flex">
+                    <div><img src="{{stock.Logo}}" alt="Stock Icon" class="mr-2" style="width: 2rem;"/></div>
+                    <div class="w-50 text-truncate" title="{{stock.Company_Name}}">
+                      <span class="d-md-block d-none">
+                        {{stock.Company_Name}}
+                      </span>
+                      <div class="text-muted small">{{stock.Symbol}}</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-1 text-right">
+                  {{ stock.Close | currency: "INR" }} 
+                  <div class="d-md-inline d-block">
+                    (
+                      <span
+                        class="ml-auto font-weight-bold {{
+                          stock.Close >= stock.Open ? 'text-success' : 'text-danger'
+                        }}"
+                      >
+                        <i
+                          class="fa fa-arrow-down"
+                          *ngIf="stock.Open >= stock.Close"
+                        ></i>
+                        <i
+                          class="fa fa-arrow-up"
+                          *ngIf="stock.Close >= stock.Open"
+                        ></i>
+                        {{ stock.change }}%
+                      </span>
+                    )
+                  </div>
+                </td>
+                <td class="py-1 text-right">
+                  <button class="btn btn-primary btn-sm" (click)="selectStock(stock)">
+                    View
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ng-template #showGraph>
+          <div class="bg-white border-0 card-header pb-0 " >
+            <div class="d-flex">
+              <div>
+                <img src="{{selectedStock.Logo}}" alt="Stock Icon" class="mr-2" style="width: 2rem;"/>
+              </div>
+              <h3 class="mb-1">
+                {{selectedStock.Company_Name}}
+              </h3>
+              <button class="btn btn-icon btn-round btn-sm ml-auto" 
+              (click)="removeStock()">
+                <i class="now-ui-icons ui-1_simple-remove"></i>
+              </button>
+            </div>
+            
+            <div class="d-flex">
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button
+                  type="button"
+                  class="btn btn-sm border {{
+                    selectedChart == 'line' ? 'btn-primary'
+                    : 'btn-link'
+                  }}"
+                  (click)="selectedChart = 'line'"
+                >
+                  Line
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-sm border {{
+                    selectedChart == 'candle'
+                      ? 'btn-primary'
+                      : 'btn-link'
+                  }}"
+                  (click)="selectedChart = 'candle'"
+                >
+                  Candle
+                </button>
+              </div>
+              <div class="ml-auto" *ngIf="selectedStock?.polarity">
+                <button class="btn 
+                {{selectedStock?.polarity == 'Positive' ? 'btn-success' : selectedStock?.polarity == 'Neutral' ? 'btn-primary' : 'btn-danger'}}">
+                  Twitter Analysis: {{selectedStock?.polarity}}
+                </button>
+                
+              </div>
+            </div>
+          </div>
+          <div class="card-body pt-0">
+            <div *ngIf="selectedChart == 'line'">
+              <line-chart [selectedStock]="selectedStock"></line-chart>
+            </div>
+            <div *ngIf="selectedChart == 'candle'">
+              <candlestick-chart [selectedStock]="selectedStock"></candlestick-chart>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <div class="col-lg-4 col-12 px-lg-0">
+      <div class="twitter-feed-card card">
+        <div class="card-body" #wrapper>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
