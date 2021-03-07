@@ -22,8 +22,6 @@ stock_list = json.loads(df.to_json(orient="records"))
 stock_list = {'res': stock_list}
 
 # The various key are being taken from env file for Twitter authentication
-
-
 def authentication():
     consumer_key = os.environ.get('Twitter_Consumer_Key')
     consumer_secret = os.environ.get('Twitter_Consumer_Secret')
@@ -33,6 +31,7 @@ def authentication():
     auth.set_access_token(access_token, access_tokenSecret)
     api = tweepy.API(auth)
     return api
+
 
 # To handle any Page not Found Error
 @app.errorhandler(404)
