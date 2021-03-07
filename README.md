@@ -195,3 +195,11 @@ This will start running application on your web browser.
 
 </pre>
 
+## 6. Deployment
+
+I have deployed the Flask application (Backend) at Heroku.
+Deployed url is: https://stockdatatryout.herokuapp.com/all OR https://stockdatatryout.herokuapp.com/tweets?keyword=nseindia
+
+
+Also, I have deployed the Angular application (Frontend) at surge.
+Deployed url is: http://stock-trial.surge.sh/
