@@ -35,15 +35,23 @@ Deployed url is: https://stockdatatryout.herokuapp.com/all OR https://stockdatat
 Also, I have deployed the Angular application (Frontend) at surge.
 Deployed url is: http://stock-trial.surge.sh/
 
+<a id='problem_statement'></a>
+## 2. Problem Statement
+For a given query dates for a stock having inputs containing multiple metrics such as opening price (Open), highest price the stock traded at (High), how many stocks were traded (Volume) and closing price adjusted for stock splits and dividends (Adjusted Close); your system only needs to predict the Adjusted Close price.
+
+In order to solve the issue, I have created a stock price predictor which builds a Long Short-Term Memory(LSTM) model based on Adjusted Close for a certain period and predict the price for the next 'n' number of days.
+
+Additionally, I have also added Twitter Sentiment Analysis for that particular stock as an extra-edge to users in filtering stock data.
+
 <a id='project-components'></a>
 
-## 2. Project Components
+## 3. Project Components
 
 There are three components of this project:
 
 <a id='python'></a>
 
-### 2.1. Price Prediction using LSTM
+### 3.1. Price Prediction using LSTM
 File _data/Generate_Database_Stocks.ipynb.py_ contains data processing pipeline which will:
 
 - Creating the dataframe by using YAHOO as datasource, today's date and 600 days from current day's dates.
@@ -55,7 +63,7 @@ File _data/Generate_Database_Stocks.ipynb.py_ contains data processing pipeline 
 
 <a id='flask'></a>
 
-### 2.2. Creating Web APIs with Flask
+### 3.2. Creating Web APIs with Flask
 
 File _models/api.py_ contains various web api which perform the following:
 
@@ -70,7 +78,7 @@ File _models/api.py_ contains various web api which perform the following:
 
 <a id='flask'></a>
 
-### 2.3. Angular Web App
+### 3.3. Angular Web App
 
 Inside the _app_ directory, I have created a web application based on Angular framework. This is where I am displaying the entire data with which a user can easily interact.
 Following the list of interactions:
@@ -85,7 +93,7 @@ Following the list of interactions:
 - Also, on selection of the particular stock, Twitter feed changes to that particular stock. On this data, _Twitter Sentiment Analysis_ is performed and data is displayed as the polarity-status of that particular stock.
 
 <a id="prereq"></a>
-## 3. Prerequisite:
+## 4. Prerequisite:
 To run the code, you need to have the following:
 
 - Python (More Details: https://www.python.org/downloads/)
@@ -95,13 +103,13 @@ To run the code, you need to have the following:
 
 <a id='project-running'></a>
 
-## 4. Running
+## 5. Running
 
 The application requires to be started from Price-Prediction-using-LSTM pipeline stage.
 
 <a id='process_generate'></a>
 
-### 4.1. Stage 1: Price Prediction using LSTM pipeline(Data Processing and Storing stage)
+### 5.1. Stage 1: Price Prediction using LSTM pipeline(Data Processing and Storing stage)
 
 **Go to the project directory** and the run the following command:
 
@@ -112,7 +120,7 @@ The application requires to be started from Price-Prediction-using-LSTM pipeline
 ![zipping_files](https://github.com/prabhatdutt95/Capstone_Investing_Trading/blob/main/Screenshot/Step1_zipping_files.JPG?raw=true)
 
 <a id='api-creation'></a>
-### 4.2. Stage 2: Creating Web APIs with Flask Pipeline
+### 5.2. Stage 2: Creating Web APIs with Flask Pipeline
 
 After Stage 1 is complete
 
@@ -140,7 +148,7 @@ Application will start running locally!
 
 
 <a id='run-flask'></a>
-### 4.3. Stage 3: Running the Angular Web App
+### 5.3. Stage 3: Running the Angular Web App
 
 After Stage 2 is running (application is running locally)
 
@@ -181,7 +189,7 @@ This will start running application on your web browser.
 ![Search_candle](https://github.com/prabhatdutt95/Capstone_Investing_Trading/blob/main/Screenshot/Step3_candle.JPG?raw=true)
 
 
-## 5. Files
+## 6. Files
 
 <pre>
 .
