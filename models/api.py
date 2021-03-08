@@ -21,8 +21,13 @@ df = pd.read_csv('Nifty50.csv')
 stock_list = json.loads(df.to_json(orient="records"))
 stock_list = {'res': stock_list}
 
-# The various key are being taken from env file for Twitter authentication
 def authentication():
+    """
+    Twitter authentication
+    Args: None
+    Returns:
+    api (object): tweepy.API 
+    """
     consumer_key = os.environ.get('Twitter_Consumer_Key')
     consumer_secret = os.environ.get('Twitter_Consumer_Secret')
     access_token = os.environ.get('Twitter_Access_Token')
@@ -33,21 +38,38 @@ def authentication():
     return api
 
 
-# To handle any Page not Found Error
 @app.errorhandler(404)
 def page_not_found(e):
+    """
+    Page not Found Error Handler
+    Args:
+    e (error): 404 error obtained
+    Returns:
+    template (html): HTML content with a paragraph content
+    """
     return "<h1>404</h1><p>The resource could not be found.</p>", 404
 
 
-# This is used to get all the stocks in nifty50
 @app.route('/', methods=['GET'])
 @app.route('/all', methods=['GET'])
 def get_stock_list():
+    """
+    List all the stocks in nifty50
+    Args: None
+    Returns:
+    stock_list (Dictionary): Returns all the stocks details as value for 'res' key
+    """
     return stock_list
 
 # This is used to predict the stock prices by taking the value from database for respective stock
 @app.route('/predict', methods=['GET'])
 def get_predictions():
+    """
+    List all the stocks in nifty50
+    Args: None
+    Returns:
+    stock_list (Dictionary): Returns all the stocks details as value for 'res' key
+    """
     if 'id' in request.args:
         sector = request.args['id']
 
@@ -58,8 +80,16 @@ def get_predictions():
 
         return {'res': [{k: df.values[i][v] for v, k in enumerate(df.columns)} for i in range(len(df))]}
 
-# To get a list of tweets from twitter for a particular keywork and number of tweets
+
 def get_tweets(keyword, noOfTweet):
+    """
+    List of tweets from twitter for a particular keywork and number of tweets
+    Args:
+    keyword (string): keyword for searching in Twitter
+    noOfTweet (int): Number of tweets
+    Returns:
+    tweets_list (Dictionary): Returns list of tweets with data
+    """
     api = authentication()
     tweets = tweepy.Cursor(api.search, q=keyword, tweet_mode="extended", languages=[
                            "en"]).items(noOfTweet)
@@ -67,10 +97,16 @@ def get_tweets(keyword, noOfTweet):
                     'polarity': TextBlob(tweet.full_text).sentiment.polarity} for tweet in tweets]
     return tweets_list
 
-# To generate twitter Sentiment analysis for a list of tweets
-# Polarity for each tweets is analysed and percentage is generated for each polarity i.e.,[Positive, Neutral, Negative]
+
 @app.route('/tweets', methods=['GET'])
 def get_polarity():
+    """
+    To generate twitter Sentiment analysis for a list of tweets
+    Polarity for each tweets is analysed and percentage is generated for each polarity i.e.,[Positive, Neutral, Negative]
+    Args: None
+    Returns:
+    tweeter_result (Dictionary): Returns list of tweets with data with polarity data
+    """
     tweeter_result = {}
     if 'keyword' in request.args:
         keyword = request.args['keyword']
@@ -91,9 +127,14 @@ def get_polarity():
         tweeter_result['data'] = tweets_list
     return tweeter_result
 
-# To provide past data of a particular stock and 'n' number of days ago
 @app.route('/pastData', methods=['GET'])
 def get_previous_days_data():
+    """
+    To provide past data of a particular stock and 'n' number of days ago
+    Args: None
+    Returns:
+    previous_days_data (Dictionary): Returns past data of a particular stock and 'n' number of days ago
+    """
     previous_days_data = {}
     if 'code' in request.args and 'days' in request.args:
         code = request.args['code']
