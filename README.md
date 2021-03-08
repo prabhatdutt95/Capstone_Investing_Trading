@@ -29,6 +29,12 @@ Additionally, I have performed Twitter Sentiment Analysis for a list of tweets u
 
 Combining Future price prediction of a stock along with the Twitter sentiment analysis for that particular stock can be an efficient medium in filtering stocks or any other securities. Thereby it can help in potential of growth for both traders and investor, in short as well as long term. 
 
+I have deployed the Flask application (Backend) at Heroku.
+Deployed url is: https://stockdatatryout.herokuapp.com/all OR https://stockdatatryout.herokuapp.com/tweets?keyword=nseindia
+
+Also, I have deployed the Angular application (Frontend) at surge.
+Deployed url is: http://stock-trial.surge.sh/
+
 <a id='project-components'></a>
 
 ## 2. Project Components
@@ -194,12 +200,3 @@ This will start running application on your web browser.
 └── Screenshots ----------------------# CONTAINS SCREENSHOTS FOR VARIOUS STEPS IN APPLICATION
 
 </pre>
-
-## 6. Deployment
-
-I have deployed the Flask application (Backend) at Heroku.
-Deployed url is: https://stockdatatryout.herokuapp.com/all OR https://stockdatatryout.herokuapp.com/tweets?keyword=nseindia
-
-
-Also, I have deployed the Angular application (Frontend) at surge.
-Deployed url is: http://stock-trial.surge.sh/
