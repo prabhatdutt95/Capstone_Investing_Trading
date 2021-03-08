@@ -7,6 +7,7 @@
 ## Table of Contents
 
 - [Project Overview](#project-overview)
+- [Problem Statement](#problem_statement)
 - [Project Components](#project-components)
   - [Price Prediction using LSTM](#python)
   - [Creating Web APIs with Flask](#flask)
