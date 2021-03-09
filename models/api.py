@@ -110,7 +110,7 @@ def get_polarity():
     tweeter_result = {}
     if 'keyword' in request.args:
         keyword = request.args['keyword']
-        noOfTweet = 150
+        noOfTweet = 150 # By default, I have added 150 as number of tweets
         polarity_data = [0]*3  # [Positive, Neutral, Negative]
         tweets_list = get_tweets(keyword, noOfTweet)
         for data in tweets_list:
