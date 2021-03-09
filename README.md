@@ -209,3 +209,6 @@ This will start running application on your web browser.
 └── Screenshots ----------------------# CONTAINS SCREENSHOTS FOR VARIOUS STEPS IN APPLICATION
 
 </pre>
+
+![Folder_Structure](https://github.com/prabhatdutt95/Capstone_Investing_Trading/blob/main/Screenshot/Folder_Structure.JPG?raw=true)
+
